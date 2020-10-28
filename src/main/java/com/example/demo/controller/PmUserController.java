@@ -1,16 +1,22 @@
 package com.example.demo.controller;
 
 
+import cn.hutool.core.util.CharsetUtil;
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.crypto.SecureUtil;
+import cn.hutool.crypto.asymmetric.KeyType;
+import cn.hutool.crypto.asymmetric.RSA;
+import cn.hutool.crypto.digest.MD5;
 import com.example.demo.entity.PmUser;
 import com.example.demo.entity.ResponseResult;
 import com.example.demo.service.IPmUserService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.RestController;
-
+import java.security.KeyPair;
+import java.security.PrivateKey;
+import java.security.PublicKey;
 import java.util.Map;
 
 /**
@@ -34,6 +40,5 @@ public class PmUserController {
         Map result = iPmUserService.register(pmUser);
         return ResponseResult.success(result);
     }
-
 }
 
