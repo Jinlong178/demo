@@ -23,6 +23,7 @@ public class PmSecMenuController {
     @Autowired
     private IPmSecMenuService iPmSecMenuService;
 
+
     public void testSql(){
 
     }
