@@ -17,4 +17,6 @@ public interface IPmUserService extends IService<PmUser> {
 
     Map register(PmUser pmUser);
 
+    Map login(PmUser pmUser);
+
 }

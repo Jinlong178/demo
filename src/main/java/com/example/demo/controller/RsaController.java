@@ -32,6 +32,6 @@ public class RsaController {
 
     @PostMapping("/getPublicKey")
     public ResponseResult getPublicKey(){
-        return ResponseResult.success(aPublic);
+        return ResponseResult.success(aPublic.getEncoded());
     }
 }

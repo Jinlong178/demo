@@ -1,10 +1,16 @@
 package com.example.demo.service.impl;
 
 import cn.hutool.core.convert.Convert;
+import cn.hutool.core.util.CharsetUtil;
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.crypto.asymmetric.KeyType;
+import cn.hutool.crypto.asymmetric.RSA;
+import com.example.demo.controller.RsaController;
 import com.example.demo.entity.PmUser;
 import com.example.demo.mapper.PmUserMapper;
 import com.example.demo.service.IPmUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -24,7 +30,8 @@ import java.util.Map;
 @Service
 public class PmUserServiceImpl extends ServiceImpl<PmUserMapper, PmUser> implements IPmUserService {
 
-
+    @Autowired
+    private RsaController rsaController;
 
     @Override
     public Map register(PmUser pmUser) {
@@ -54,5 +61,33 @@ public class PmUserServiceImpl extends ServiceImpl<PmUserMapper, PmUser> impleme
 
         }
 
+    }
+
+    @Override
+    public Map login(PmUser pmUser) {
+        Map result = new HashMap();
+        Map param = new HashMap();
+        String name = pmUser.getName();
+        String passWord = pmUser.getPassWord();
+        RSA rsa = rsaController.getRsa();
+        byte[] decrypt = rsa.decrypt(passWord, KeyType.PrivateKey);
+        passWord = StrUtil.str(decrypt, CharsetUtil.CHARSET_UTF_8);
+        param.put("NAME",name);
+        List<PmUser> list = listByMap(param);
+        if(list.size()>0){
+            String pw = list.get(0).getPassWord();
+            if(pw.equals(passWord)){
+                result.put("msg","登录成功");
+                result.put("code",1);
+            }else{
+                result.put("msg","密码错误");
+                result.put("code",0);
+            }
+
+        }else{
+            result.put("msg","用户名不存在");
+            result.put("code",0);
+        }
+        return result;
     }
 }
