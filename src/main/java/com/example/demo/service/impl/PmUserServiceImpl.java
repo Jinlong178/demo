@@ -45,7 +45,7 @@ public class PmUserServiceImpl extends ServiceImpl<PmUserMapper, PmUser> impleme
             result.put("code",0);
             return result;
         }else{
-            LocalDateTime creatTime = Convert.toLocalDateTime(new Date());
+            LocalDateTime creatTime = LocalDateTime.now();
             pmUser.setCreatTime(creatTime);
             pmUser.setDel(0);
             boolean save = save(pmUser);
@@ -89,5 +89,11 @@ public class PmUserServiceImpl extends ServiceImpl<PmUserMapper, PmUser> impleme
             result.put("code",0);
         }
         return result;
+    }
+
+
+    public static void main(String[] args) {
+        LocalDateTime now = LocalDateTime.now();
+        System.out.println(now);
     }
 }

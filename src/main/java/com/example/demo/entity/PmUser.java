@@ -45,6 +45,19 @@ public class PmUser implements Serializable {
     private String phone;
 
     /**
+     * 头像
+     */
+    @TableField("IMG")
+    private String img;
+
+    /**
+     * 性别
+     *  0:女，1：男
+     */
+    @TableField("SEX")
+    private int sex;
+
+    /**
      * 创建时间
      */
     @TableField("CREAT_TIME")
