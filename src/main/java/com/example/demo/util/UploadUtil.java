@@ -1,5 +1,6 @@
 package com.example.demo.util;
 
+import com.example.demo.entity.PmAttachment;
 import com.example.demo.entity.ResponseResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,8 +20,10 @@ public class UploadUtil {
         MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest)fileRequest;
         if (multipartRequest.getFileMap().size() == 0) {
         } else {
+            List<PmAttachment> results = new ArrayList();
             multipartRequest.getFileMap().entrySet().forEach((entry) -> {
                 List<MultipartFile> files = multipartRequest.getFiles((String)entry.getKey());
+
             });
         }
         return ResponseResult.success(true);
