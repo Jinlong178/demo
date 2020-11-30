@@ -79,6 +79,7 @@ public class PmUserServiceImpl extends ServiceImpl<PmUserMapper, PmUser> impleme
             if(pw.equals(passWord)){
                 result.put("msg","登录成功");
                 result.put("code",1);
+                result.put("user",list.get(0));
             }else{
                 result.put("msg","密码错误");
                 result.put("code",0);
