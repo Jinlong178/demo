@@ -6,6 +6,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.asymmetric.KeyType;
 import cn.hutool.crypto.asymmetric.RSA;
 import com.example.demo.controller.RsaController;
+import com.example.demo.entity.PmAttachment;
 import com.example.demo.entity.PmUser;
 import com.example.demo.mapper.PmUserMapper;
 import com.example.demo.service.IPmUserService;
@@ -32,6 +33,9 @@ public class PmUserServiceImpl extends ServiceImpl<PmUserMapper, PmUser> impleme
 
     @Autowired
     private RsaController rsaController;
+
+    @Autowired
+    private PmAttachmentServiceImpl pmAttachmentService;
 
     @Override
     public Map register(PmUser pmUser) {
@@ -77,9 +81,10 @@ public class PmUserServiceImpl extends ServiceImpl<PmUserMapper, PmUser> impleme
         if(list.size()>0){
             String pw = list.get(0).getPassWord();
             if(pw.equals(passWord)){
+                PmUser pmUser1 = list.get(0);
                 result.put("msg","登录成功");
                 result.put("code",1);
-                result.put("user",list.get(0));
+                result.put("user",pmUser1);
             }else{
                 result.put("msg","密码错误");
                 result.put("code",0);

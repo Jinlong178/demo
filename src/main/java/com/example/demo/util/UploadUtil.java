@@ -28,7 +28,7 @@ public class UploadUtil {
     @Autowired
     private IPmAttachmentService iPmAttachmentService;
 
-    private final String filePath = "D:\\\\test_myself";
+    private final String filePath = "C:\\demo\\file\\demo";
 
     @PostMapping("/uploadMul")
     public ResponseResult upload(HttpServletRequest fileRequest, @RequestParam(required = false) String catalog) {

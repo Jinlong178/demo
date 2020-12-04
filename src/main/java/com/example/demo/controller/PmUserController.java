@@ -34,5 +34,13 @@ public class PmUserController {
         Map login = iPmUserService.login(pmUser);
         return ResponseResult.success(login);
     }
+
+    @PostMapping("/saveImg")
+    public ResponseResult saveImg(@RequestBody PmUser pmUser){
+        PmUser byId = iPmUserService.getById(pmUser.getId());
+        byId.setImg(pmUser.getImg());
+        iPmUserService.updateById(byId);
+        return ResponseResult.success(byId);
+    }
 }
 

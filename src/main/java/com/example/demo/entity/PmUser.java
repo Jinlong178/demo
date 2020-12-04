@@ -23,7 +23,7 @@ public class PmUser implements Serializable {
 
     private static final long serialVersionUID=1L;
 
-    @TableId("ID")
+    @TableId(value = "ID")
     private String id;
 
     /**
@@ -74,6 +74,5 @@ public class PmUser implements Serializable {
      */
     @TableField("DEL")
     private Integer del;
-
 
 }
