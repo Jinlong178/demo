@@ -52,6 +52,8 @@ public class PmUserServiceImpl extends ServiceImpl<PmUserMapper, PmUser> impleme
             LocalDateTime creatTime = LocalDateTime.now();
             pmUser.setCreatTime(creatTime);
             pmUser.setDel(0);
+            //分配初始头像
+            pmUser.setImg("01c9fc5c1267fc4a0ee87f7e6601861c");
             boolean save = save(pmUser);
             if(save){
                 result.put("msg","注册成功");
