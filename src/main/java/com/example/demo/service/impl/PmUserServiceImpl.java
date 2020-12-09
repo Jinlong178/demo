@@ -5,6 +5,7 @@ import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.asymmetric.KeyType;
 import cn.hutool.crypto.asymmetric.RSA;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.demo.controller.RsaController;
 import com.example.demo.entity.PmAttachment;
 import com.example.demo.entity.PmUser;
@@ -14,6 +15,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Wrapper;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashMap;
@@ -44,6 +46,14 @@ public class PmUserServiceImpl extends ServiceImpl<PmUserMapper, PmUser> impleme
         map.put("PHONE",phone);
         List<PmUser> list = listByMap(map);
         Map result = new HashMap();
+        QueryWrapper<PmUser> qw = new QueryWrapper<>();
+        qw.eq("name",pmUser.getName());
+        Map<String, Object> byName = getMap(qw);
+        if (byName!=null){
+            result.put("msg","该用户名已存在");
+            result.put("code",0);
+            return result;
+        }
         if(list.size()>0){
             result.put("msg","该手机号已注册");
             result.put("code",0);
