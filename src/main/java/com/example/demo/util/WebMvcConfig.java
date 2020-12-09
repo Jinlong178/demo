@@ -26,7 +26,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         if (!basename.endsWith("/")) {
             basename = basename + "/";
         }
-        registry.addResourceHandler("/upload/**").addResourceLocations("file:"+basename);
+        registry.addResourceHandler("/**").addResourceLocations("file:"+basename);
     }
 
 }

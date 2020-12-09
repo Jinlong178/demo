@@ -33,9 +33,6 @@ public class UploadUtil {
     @Autowired
     private ApplicationProperties applicationProperties;
 
-    @Value("${cbs.imagesPath}")
-    private String mImagesPath;
-
     @PostMapping("/uploadMul")
     public ResponseResult upload(HttpServletRequest fileRequest, @RequestParam(required = false) String catalog) {
         MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest)fileRequest;
