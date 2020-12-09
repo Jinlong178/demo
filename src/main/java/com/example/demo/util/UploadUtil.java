@@ -1,11 +1,13 @@
 package com.example.demo.util;
 
 import cn.hutool.core.util.StrUtil;
+import com.example.demo.entity.ApplicationProperties;
 import com.example.demo.entity.FileModel;
 import com.example.demo.entity.PmAttachment;
 import com.example.demo.entity.ResponseResult;
 import com.example.demo.service.IPmAttachmentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,7 +30,11 @@ public class UploadUtil {
     @Autowired
     private IPmAttachmentService iPmAttachmentService;
 
-    private final String filePath = "C:\\demo\\file\\demo";
+    @Autowired
+    private ApplicationProperties applicationProperties;
+
+    @Value("${cbs.imagesPath}")
+    private String mImagesPath;
 
     @PostMapping("/uploadMul")
     public ResponseResult upload(HttpServletRequest fileRequest, @RequestParam(required = false) String catalog) {
@@ -97,13 +103,12 @@ public class UploadUtil {
             }
 
             String suffix = originalFilename.substring(originalFilename.lastIndexOf("."));
-            String basename=filePath;
-//            String basename = this.applicationProperties.getMasterStore().getPath().trim();
-//            basename = basename.replace("\\", "/");
-//            basename = basename.replace("//", "/");
-//            if (!basename.endsWith("/")) {
-//                basename = basename + "/";
-//            }
+            String basename = this.applicationProperties.getMasterStore().getPath().trim();
+            basename = basename.replace("\\", "/");
+            basename = basename.replace("//", "/");
+            if (!basename.endsWith("/")) {
+                basename = basename + "/";
+            }
 
             String logicName = UUID.randomUUID().toString() + suffix;
             String c = StrUtil.isEmpty(catalog) ? "" : catalog;
